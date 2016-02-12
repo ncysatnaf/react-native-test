@@ -1,4 +1,4 @@
- import React,{
+/* import React,{
 	StyleSheet,
 	View,
 	Text,
@@ -66,3 +66,4 @@ let styles = StyleSheet.create({
   }
 })
 export default Toolbar
+*/

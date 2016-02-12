@@ -9,9 +9,11 @@ import React, {
 
 import {connect} from 'react-redux/native'
 
+import Home from '../components/Home'
 import Main from '../components/Main'
 import DrawerView from '../components/DrawerView'
 import Toolbar from '../components/Toolbar'
+import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 const DRAWER_REF = 'drawer'
 
@@ -52,8 +54,12 @@ class MainContainer extends React.Component {
           		navIcon={require('../../assets/menu.png')}
           		onIconClicked={() => this.refs[DRAWER_REF].openDrawer()}
   	    	  />
-  	    	  <Toolbar />
-			  {this.renderContent}
+  	    	  <ScrollableTabView>
+  	    	  	<Home tabLabel='发现' />
+  	    	  	<Home tabLabel='个性推荐' />
+  	    	  	<Home tabLabel='新品上新' />
+  	    	  	<Home tabLabel='排行榜' />
+  	    	  </ScrollableTabView>
 			 </DrawerLayoutAndroid>
 		)
 	}
