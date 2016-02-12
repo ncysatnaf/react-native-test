@@ -7,7 +7,7 @@ import React,{
 
 let deviceWidth = Dimensions.get('window').width
 
-import Toolbar from './Toolbar'
+
 
 
 class Main extends React.Component {
@@ -17,9 +17,7 @@ class Main extends React.Component {
   }
 
   renderContent(){
-  	return (
-  	  <Toolbar />
-  	)
+
   }
 
   render() {

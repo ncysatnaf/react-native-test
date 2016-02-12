@@ -1,4 +1,4 @@
-import React,{
+ import React,{
 	StyleSheet,
 	View,
 	Text,
@@ -15,6 +15,10 @@ class Toolbar extends React.Component {
 		super(props)
 	}
 
+	onPress (g) {
+		
+	}
+
 	render() {
 	  return (
 	  	<View style={styles.view}>
@@ -26,7 +30,10 @@ class Toolbar extends React.Component {
 	  		  >
 	  		  { TOPICS.map((g,idx) => {
 	  		  	return (
-	  		  	  <TouchableOpacity key={idx} style={styles.item}>
+	  		  	  <TouchableOpacity 
+	  		  	  	key={idx} 
+	  		  	  	style={[styles.item]}
+	  		  	  	onPress={this.onPress.bind(this, g)}>
 	  		  	    <Text style={styles.genre}>{g}</Text>
 	  		  	  </TouchableOpacity>
 	  		  	)
@@ -44,9 +51,11 @@ let styles = StyleSheet.create({
   container: {
     height: 40,
     width: deviceWidth,
+    borderBottomWidth: 2,
+    borderBottomColor: '#f0f3f4'
   },
   item: {
-  	color: '#34465d',
+  	color: '#2c3e50',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

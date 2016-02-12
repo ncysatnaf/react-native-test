@@ -10,7 +10,8 @@ import React, {
 import {connect} from 'react-redux/native'
 
 import Main from '../components/Main'
-import NavigatorList from '../components/NavigatorList'
+import DrawerView from '../components/DrawerView'
+import Toolbar from '../components/Toolbar'
 
 const DRAWER_REF = 'drawer'
 
@@ -23,11 +24,17 @@ class MainContainer extends React.Component {
 		super(props)
 
 		this._renderNavigationView = this._renderNavigationView.bind(this)
+		this.renderContent = this.renderContent.bind(this)
 	}
 
 	_renderNavigationView() {
 		return (
-			<NavigatorList />
+			<DrawerView />
+		)
+	}
+	renderContent() {
+		return(
+		 	<Main />
 		)
 	}
 	render() {
@@ -45,7 +52,8 @@ class MainContainer extends React.Component {
           		navIcon={require('../../assets/menu.png')}
           		onIconClicked={() => this.refs[DRAWER_REF].openDrawer()}
   	    	  />
-			  <Main />
+  	    	  <Toolbar />
+			  {this.renderContent}
 			 </DrawerLayoutAndroid>
 		)
 	}
@@ -53,9 +61,9 @@ class MainContainer extends React.Component {
 
 let styles = StyleSheet.create({
   toolbar: {
-    height: 60,
+    height: 55,
     color: '#fff',
-    backgroundColor: 'ff6600',
+    backgroundColor: '#34495e',
     justifyContent: 'center'
   }
 })

@@ -10,7 +10,7 @@ import React, {
 
 import { NAVLIST } from '../constants/BaseConstants' 
 
-class NavigatorList extends React.Component {
+class DrawerView extends React.Component {
  	constructor (props) {
 		super(props)
 	}
@@ -30,4 +30,4 @@ class NavigatorList extends React.Component {
  	}
  }
 
- export default NavigatorList
+ export default DrawerView
