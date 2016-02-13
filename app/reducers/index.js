@@ -1,8 +1,61 @@
-import {combineReducers} from 'redux'
-import entities from '../reducers/entities'
+import merge from 'loadsh/object/merge'
+import * as types from '../actions'
+import { combineReducers } from 'redux'
 
+
+
+function entities(state = { goods: {} }, action) {
+	if (action.entities) {
+	  return merge({}, state, action.entities)
+	}
+	return state
+}
+
+function goodslist(state = {
+	isFetching: false,
+	items: [],
+	nextUrl: false
+}, action) {
+	//console.log(state,action,types)
+	console.log(action)
+	switch (action.type) {
+		case types.RECEIVE_GOODS:
+			return Object.assign({}, state, {
+				isFetching: false,
+				items: action.goods.items,
+				nextUrl: action.nextUrl
+			})
+
+		case types.REQUEST_GOODS:
+			return Object.assign({}, state, {
+				isFetching: true,
+				nextUrl: null
+			})
+
+		default:
+		 	return state
+	}
+}
+
+export default function goodslists(state= {}, action) {
+	switch(action.type) {
+		case types.RECEIVE_SONGS:
+			return Object.assign({}, state, {
+			  [action.goodslist]: goodslist(state[action.goodslist], action)
+			})
+
+		case types.REQUEST_GOODS:
+			return Object.assign({}, state, {
+			  [action.goodslist]: goodslist(state[action.goodslist], action)
+			})
+
+		default:
+			return state
+	}
+}
 const rootReducer = combineReducers({
-	entities
+	entities,
+	goodslist
 })
-
 export default rootReducer
+

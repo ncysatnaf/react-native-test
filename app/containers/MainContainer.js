@@ -8,6 +8,7 @@ import React, {
 } from 'react-native'
 
 import {connect} from 'react-redux/native'
+import { fetchGoodsIfNeeded } from '../actions/index'
 
 import Home from '../components/Home'
 import Main from '../components/Main'
@@ -24,9 +25,11 @@ let toolbarActions = [
 class MainContainer extends React.Component {
 	constructor (props) {
 		super(props)
-
 		this._renderNavigationView = this._renderNavigationView.bind(this)
-		this.renderContent = this.renderContent.bind(this)
+	}
+	componentWillMount(){
+		const { dispatch } = this.props
+		dispatch(fetchGoodsIfNeeded())
 	}
 
 	_renderNavigationView() {
@@ -34,12 +37,13 @@ class MainContainer extends React.Component {
 			<DrawerView />
 		)
 	}
-	renderContent() {
-		return(
-		 	<Main />
-		)
-	}
+	// renderContent() {
+	// 	return(
+	// 	 	<Main items={this.props.items}/>
+	// 	)
+	// }
 	render() {
+		const {items} = this.props
 		return (
 			<DrawerLayoutAndroid 
 			  ref={DRAWER_REF}
@@ -48,17 +52,17 @@ class MainContainer extends React.Component {
 			  drawerPosition={DrawerLayoutAndroid.positions.Left}>
 			  <ToolbarAndroid
   	      		style={styles.toolbar}
-  	      		title={'React Test2'}
+  	      		title={'Test'}
           		titleColor='#fff'
           		actions={toolbarActions}
           		navIcon={require('../../assets/menu.png')}
           		onIconClicked={() => this.refs[DRAWER_REF].openDrawer()}
   	    	  />
   	    	  <ScrollableTabView>
-  	    	  	<Home tabLabel='发现' />
-  	    	  	<Home tabLabel='个性推荐' />
-  	    	  	<Home tabLabel='新品上新' />
-  	    	  	<Home tabLabel='排行榜' />
+  	    	  	<Home style={styles.tabview} items={items} tabLabel='发现' />
+  	    	  	<Home items={items} tabLabel='个性推荐' />
+  	    	  	<Home items={items} tabLabel='新品上新' />
+  	    	  	<Home items={items} tabLabel='排行榜' />
   	    	  </ScrollableTabView>
 			 </DrawerLayoutAndroid>
 		)
@@ -71,6 +75,22 @@ let styles = StyleSheet.create({
     color: '#fff',
     backgroundColor: '#34495e',
     justifyContent: 'center'
-  }
+  },
 })
-export default MainContainer
+
+
+
+function mapStateToProps(state) {
+	//console.log(state)
+	const {
+		entities: {goods},
+		goodslist: {items}
+
+	} = state
+	//console.log(items)
+	return {
+		goods,
+		items
+	}
+}
+export default connect(mapStateToProps)(MainContainer)
