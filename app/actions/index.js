@@ -1,3 +1,6 @@
+import { normalize } from 'normalizr'
+import { goodsSchema} from '../constants/Schemas'
+
 export const REQUEST_GOODS = 'REQUEST_GOODS'
 export const RECEIVE_GOODS = 'REVEIVE_GOODS'
 
