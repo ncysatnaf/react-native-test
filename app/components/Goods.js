@@ -12,22 +12,27 @@ import React,{
 let deviceWidth = Dimensions.get('window').width
 let deviceHeight = Dimensions.get('window').height
 
-export class Home extends React.Component {
+export class Goods extends React.Component {
   constructor(props) {
     super(props)
+
+    this.onEndReached = this.onEndReached.bind(this)
+  }
+
+  onEndReached() {
+    this.props.scrollFunc()
   }
 
   render() {
     const {items} = this.props
-    console.log(items)
 
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     let dataSource = ds.cloneWithRows(items)
-    console.log(dataSource.rowIdentities)
     return (
       <View style={styles.view}>
         <ListView 
           dataSource={dataSource}
+          //onEndReached={this.onEndReached}
           renderRow={(goods) => {
             return (
               <View style={styles.container}>
@@ -144,4 +149,4 @@ let styles = StyleSheet.create({
     flex: 1
   }
 })
-export default Home
+export default Goods

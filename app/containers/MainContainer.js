@@ -10,10 +10,9 @@ import React, {
 import {connect} from 'react-redux/native'
 import { fetchGoodsIfNeeded } from '../actions/index'
 
-import Home from '../components/Home'
+import Goods from '../components/Goods'
 import Main from '../components/Main'
 import DrawerView from '../components/DrawerView'
-import Toolbar from '../components/Toolbar'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 const DRAWER_REF = 'drawer'
@@ -21,6 +20,12 @@ const DRAWER_REF = 'drawer'
 let toolbarActions = [
   {title: 'Search', icon: require('../../assets/search.png'), show: 'always'}
 ]
+function loadData(props){
+	const { dispatch, nextPage } = props
+		dispatch(fetchGoodsIfNeeded({
+			page: nextPage
+		}))
+}
 
 class MainContainer extends React.Component {
 	constructor (props) {
@@ -28,8 +33,7 @@ class MainContainer extends React.Component {
 		this._renderNavigationView = this._renderNavigationView.bind(this)
 	}
 	componentWillMount(){
-		const { dispatch } = this.props
-		dispatch(fetchGoodsIfNeeded())
+		loadData(this.props)
 	}
 
 	_renderNavigationView() {
@@ -59,10 +63,10 @@ class MainContainer extends React.Component {
           		onIconClicked={() => this.refs[DRAWER_REF].openDrawer()}
   	    	  />
   	    	  <ScrollableTabView>
-  	    	  	<Home style={styles.tabview} items={items} tabLabel='发现' />
-  	    	  	<Home items={items} tabLabel='个性推荐' />
-  	    	  	<Home items={items} tabLabel='新品上新' />
-  	    	  	<Home items={items} tabLabel='排行榜' />
+  	    	  	<Goods style={styles.tabview} items={items} tabLabel='发现' scrollFunc={loadData(this.props)}/>
+  	    	  	<Goods items={items} tabLabel='个性推荐' />
+  	    	  	<Goods items={items} tabLabel='新品上新' />
+  	    	  	<Goods items={items} tabLabel='排行榜' />
   	    	  </ScrollableTabView>
 			 </DrawerLayoutAndroid>
 		)
@@ -84,13 +88,14 @@ function mapStateToProps(state) {
 	//console.log(state)
 	const {
 		entities: {goods},
-		goodslist: {items}
+		goodslist: {items,nextPage}
 
 	} = state
 	//console.log(items)
 	return {
 		goods,
-		items
+		items,
+		nextPage
 	}
 }
 export default connect(mapStateToProps)(MainContainer)

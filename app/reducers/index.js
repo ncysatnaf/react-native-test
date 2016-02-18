@@ -14,7 +14,7 @@ function entities(state = { goods: {} }, action) {
 function goodslist(state = {
 	isFetching: false,
 	items: [],
-	nextUrl: false
+	nextPage: 1
 }, action) {
 	//console.log(state,action,types)
 	console.log(action)
@@ -23,13 +23,12 @@ function goodslist(state = {
 			return Object.assign({}, state, {
 				isFetching: false,
 				items: action.goods.items,
-				nextUrl: action.nextUrl
+				nextPage: action.nextPage++
 			})
 
 		case types.REQUEST_GOODS:
 			return Object.assign({}, state, {
 				isFetching: true,
-				nextUrl: null
 			})
 
 		default:
