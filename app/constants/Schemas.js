@@ -1,11 +1,21 @@
 import { normalize, Schema, arrayOf} from 'normalizr'
 
-let goods = new Schema('goods')
-let items = new Schema('items')
-
-goods.define({
-	items: items
+let goodslist = new Schema('goodslists', {
+	idAttribute: 'currentPage'
+})
+let item = new Schema('items', {
+	idAttribute: 'title'
 })
 
-export const goodsSchema = goods
-export const itemsSchema = items
+let serie = new Schema('series')
+
+goodslist.define({
+	items: arrayOf(item)
+})
+item.define({
+	attrs: arrayOf(serie)
+})
+
+export const goodslistSchema = goodslist
+export const itemSchema = item
+export const serieSchema = serie

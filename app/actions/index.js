@@ -1,5 +1,5 @@
 import { normalize } from 'normalizr'
-import { goodsSchema} from '../constants/Schemas'
+import { goodslistSchema } from '../constants/Schemas'
 
 export const REQUEST_GOODS = 'REQUEST_GOODS'
 export const RECEIVE_GOODS = 'REVEIVE_GOODS'
@@ -24,7 +24,7 @@ function fetchGoods(data) {
 	  })
 	  	.then(response => response.json())
 	  	.then(json => {
-	  		const normalized = normalize(json,goodsSchema)
+	  		const normalized = normalize(json,goodslistSchema)
 	  		dispatch(receiveGoods(json, normalized.entities, nextPage ))
 	  	})
 	  	.catch(error => console.log(error))

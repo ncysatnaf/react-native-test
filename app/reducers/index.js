@@ -14,6 +14,7 @@ function entities(state = { goods: {} }, action) {
 function goodslist(state = {
 	isFetching: false,
 	items: [],
+	serie: [],
 	nextPage: 1
 }, action) {
 	//console.log(state,action,types)
