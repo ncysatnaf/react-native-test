@@ -4,13 +4,15 @@ import React, {
 	Component,
 	DrawerLayoutAndroid,
 	Dimensions,
-	ToolbarAndroid
+	ToolbarAndroid,
 } from 'react-native'
 
 import {connect} from 'react-redux/native'
 import { fetchGoodsIfNeeded } from '../actions/index'
+import shallowEqual from 'react-pure-render/shallowEqual'
 
 import Goods from '../components/Goods'
+import Test from '../components/Test'
 import Main from '../components/Main'
 import DrawerView from '../components/DrawerView'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
@@ -23,7 +25,7 @@ let toolbarActions = [
 function loadData(props){
 	const { dispatch, nextPage } = props
 		dispatch(fetchGoodsIfNeeded({
-			page: nextPage
+			page: nextPage,
 		}))
 }
 
@@ -34,6 +36,21 @@ class MainContainer extends React.Component {
 	}
 	componentWillMount(){
 		loadData(this.props)
+	}
+
+	// shouldComponentUpdate(nextProps, nextState) {
+ //    const shouldUpdate =
+ //      !shallowEqual(this.props, nextProps) ||
+ //      !shallowEqual(this.state, nextState)
+ //    return shouldUpdate
+ //  }
+
+	componentWillReceiveProps(nextProps){
+		//console.log(this.props,nextProps)
+		const {dispatch, onEndReached, currentPage, nextPage} = nextProps
+		if(nextProps.onEndReached == true) {
+			loadData(nextProps)
+		}
 	}
 
 	_renderNavigationView() {
@@ -56,17 +73,17 @@ class MainContainer extends React.Component {
 			  drawerPosition={DrawerLayoutAndroid.positions.Left}>
 			  <ToolbarAndroid
   	      		style={styles.toolbar}
-  	      		title={'Test'}
+  	      		title={'Moe'}
           		titleColor='#fff'
           		actions={toolbarActions}
           		navIcon={require('../../assets/menu.png')}
           		onIconClicked={() => this.refs[DRAWER_REF].openDrawer()}
   	    	  />
   	    	  <ScrollableTabView>
-  	    	  	<Goods style={styles.tabview} items={items} tabLabel='发现' scrollFunc={loadData(this.props)}/>
-  	    	  	<Goods items={items} tabLabel='个性推荐' />
-  	    	  	<Goods items={items} tabLabel='新品上新' />
-  	    	  	<Goods items={items} tabLabel='排行榜' />
+  	    	  	<Goods {...this.props} style={styles.tabview} items={items} tabLabel='发现' />
+  	    	  	<Test {...this.props} style={styles.tabview} items={items} tabLabel='个性推荐' />
+  	    	  	<Test {...this.props} style={styles.tabview} items={items} tabLabel='新品上新' />
+  	    	  	<Test {...this.props} style={styles.tabview} items={items} tabLabel='排行榜' />
   	    	  </ScrollableTabView>
 			 </DrawerLayoutAndroid>
 		)
@@ -85,15 +102,17 @@ let styles = StyleSheet.create({
 
 
 function mapStateToProps(state) {
-	//console.log(state)
+	console.log(state)
 	const {
-		entities: {goods},
-		goodslist: {items,nextPage}
+		entities: {items},
+		goodslist: {nextPage, onEndReached, currentPage, isFetching}
 
 	} = state
 	//console.log(items)
 	return {
-		goods,
+		onEndReached,
+		isFetching,
+		currentPage,
 		items,
 		nextPage
 	}

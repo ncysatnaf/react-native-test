@@ -6,12 +6,14 @@ import React,{
   ListView,
   TouchableHighlight,
   Dimensions,
-  ScrollView
+  ScrollView,
+  ProgressBarAndroid
 } from 'react-native'
 
 let deviceWidth = Dimensions.get('window').width
 let deviceHeight = Dimensions.get('window').height
 
+import { handleOptionChange } from '../actions/index'
 export class Goods extends React.Component {
   constructor(props) {
     super(props)
@@ -20,11 +22,12 @@ export class Goods extends React.Component {
   }
 
   onEndReached() {
-    this.props.scrollFunc()
+    this.props.dispatch(handleOptionChange('onEndReached', true, 'goodslist'))
   }
 
   render() {
     const {items} = this.props
+    console.log(this.props)
 
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     let dataSource = ds.cloneWithRows(items)
@@ -32,7 +35,7 @@ export class Goods extends React.Component {
       <View style={styles.view}>
         <ListView 
           dataSource={dataSource}
-          //onEndReached={this.onEndReached}
+          onEndReached={this.onEndReached}
           renderRow={(goods) => {
             return (
               <View style={styles.container}>
@@ -76,6 +79,7 @@ export class Goods extends React.Component {
               </View>
             )
           }}/>
+          {(this.props.onEndReached || this.props.isFetching) && <ProgressBarAndroid  styleAttr="Inverse" color="red" indeterminate={true}/>}
       </View>
 
     )

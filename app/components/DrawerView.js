@@ -30,22 +30,22 @@ class DrawerView extends React.Component {
 		  </View>
 		  <View style={styles.list}>
 		  	<TouchableHighlight>
-		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>测试</Text>
+		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>施工中</Text>
 		  	</TouchableHighlight>
 		  	<TouchableHighlight>
-		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>测试</Text>
+		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>施工中</Text>
 		  	</TouchableHighlight>
 		  	<TouchableHighlight>
-		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>测试</Text>
+		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>施工中</Text>
 		  	</TouchableHighlight>
 		  	<TouchableHighlight>
-		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>测试</Text>
+		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>施工中</Text>
 		  	</TouchableHighlight>
 		  	<TouchableHighlight>
-		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>测试</Text>
+		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>施工中</Text>
 		  	</TouchableHighlight>
 		  	<TouchableHighlight>
-		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>测试</Text>
+		  		<Text style={{padding:10,color:'#34495e',marginLeft: 20,marginTop: 10,}}>施工中</Text>
 		  	</TouchableHighlight>
 		  </View>
  	  	</View>

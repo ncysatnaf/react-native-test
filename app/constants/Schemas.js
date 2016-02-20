@@ -12,9 +12,7 @@ let serie = new Schema('series')
 goodslist.define({
 	items: arrayOf(item)
 })
-item.define({
-	attrs: arrayOf(serie)
-})
+
 
 export const goodslistSchema = goodslist
 export const itemSchema = item
