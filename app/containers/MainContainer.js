@@ -94,7 +94,7 @@ let styles = StyleSheet.create({
   toolbar: {
     height: 55,
     color: '#fff',
-    backgroundColor: '#34495e',
+    backgroundColor: '#f4a221',
     justifyContent: 'center'
   },
 })

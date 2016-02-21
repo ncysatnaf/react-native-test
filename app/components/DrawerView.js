@@ -60,7 +60,7 @@ let styles = StyleSheet.create({
 	head: {
 		flex: 1,
 		flexDirection: 'row',
-		backgroundColor: '#34495e',
+		backgroundColor: '#f4a221',
 		width:deviceWidth - 60,
 	},
 	list: {
@@ -71,7 +71,7 @@ let styles = StyleSheet.create({
 	userInfo: {
 		flex: 1,
 		height: 40,
-		backgroundColor: '#34495e',
+		backgroundColor: '#f4a221',
 	}
 
 })
