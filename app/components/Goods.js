@@ -22,17 +22,21 @@ export class Goods extends React.Component {
   }
 
   onEndReached() {
-    this.props.dispatch(handleOptionChange('onEndReached', true, 'goodslist'))
+    if (this.props.quertName) {
+      this.props.dispatch(handleOptionChange('onEndReached', true, 'searchlist'))
+    } else {
+      this.props.dispatch(handleOptionChange('onEndReached', true, 'goodslist'))
+    }
   }
 
   render() {
     const {items} = this.props
-    console.log(this.props)
+    //console.log(this.props)
 
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     let dataSource = ds.cloneWithRows(items)
     return (
-      <View style={styles.view}>
+      <View style= {styles.view}>
         <ListView 
           dataSource={dataSource}
           onEndReached={this.onEndReached}
@@ -40,13 +44,14 @@ export class Goods extends React.Component {
             return (
               <View style={styles.container}>
                 <View >
-                  <View style={styles.top}>
-                    <View style={styles.price_box}>
-                      <Text style={styles.price}>
-                        ￥{goods.price}
+                    <View style={styles.right_box}>
+                      <Text style={{color:'#bdc3c7',fontSize:10,marginRight:10}}>
+                          预定{goods.deposit}
+                          <Text style={styles.price}>
+                            ￥{goods.price}
+                          </Text>
                       </Text>
                     </View>
-                  </View>
                   <View style={styles.content}>
                     <ScrollView
                       style={[styles.scrollView, styles.horizontalScrollView]}
@@ -68,10 +73,22 @@ export class Goods extends React.Component {
                       <Image
                         style={styles.img}
                         source={{uri: goods.img}} />
+                      <Image
+                        style={styles.img}
+                        source={{uri: goods.img}} />
+                      <Image
+                        style={styles.img}
+                        source={{uri: goods.img}} />
+                      <Image
+                        style={styles.img}
+                        source={{uri: goods.img}} />
                     </ScrollView>
                   </View>
                   <View>
                     <Text style={styles.title}>
+                      <Text style={styles.condition}>
+                        {goods.condition == 1 ? '「现货」' : ''}
+                      </Text>
                       {goods.title}
                     </Text>
                   </View>
@@ -106,20 +123,18 @@ let styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF',
     width: deviceWidth - 20,
-    height: 200,
     paddingTop: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: '#d3d9de',
-    borderRightWidth: 1,
-    borderRightColor: '#d3d9de',
-    borderLeftWidth: 1,
-    borderLeftColor: '#d3d9de',
+    paddingBottom: 15,
+    borderRadius: 10,
+    paddingLeft: 1,
+    paddingRight: 1
 
   },
   title: {
     color: '#2c3e50',
-    marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
+    marginRight: 10,
+    marginLeft: 10
   },
   top: {
     height: 40
@@ -129,7 +144,11 @@ let styles = StyleSheet.create({
     color: '#e74c3c',
     marginRight: 8
   },
-  price_box:{
+  condition:{
+    color: '#e74c3c',
+    fontSize: 16,
+  },
+  right_box:{
     backgroundColor: '#f4f4f4',
     borderLeftWidth: 8,
     borderLeftColor: '#f4f4f4',
@@ -139,7 +158,8 @@ let styles = StyleSheet.create({
   img: {
     width: 100,
     height: 100,
-    marginRight: 10
+    borderRadius: 5,
+    marginRight: 5
   },
   content: {
     flexDirection: 'row',
@@ -150,7 +170,8 @@ let styles = StyleSheet.create({
     height: 100,
   },
   scrollView: {
-    flex: 1
+    flex: 1,
+    marginTop: 10,
   }
 })
 export default Goods

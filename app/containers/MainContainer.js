@@ -6,10 +6,12 @@ import React, {
 	Dimensions,
 	ToolbarAndroid,
 } from 'react-native'
+import SearchContainer from './SearchContainer'
 
 import {connect} from 'react-redux/native'
 import { fetchGoodsIfNeeded } from '../actions/index'
 import shallowEqual from 'react-pure-render/shallowEqual'
+import InteractionManager from 'InteractionManager'
 
 import Goods from '../components/Goods'
 import Test from '../components/Test'
@@ -26,6 +28,7 @@ function loadData(props){
 	const { dispatch, nextPage } = props
 		dispatch(fetchGoodsIfNeeded({
 			page: nextPage,
+			name: null
 		}))
 }
 
@@ -33,6 +36,7 @@ class MainContainer extends React.Component {
 	constructor (props) {
 		super(props)
 		this._renderNavigationView = this._renderNavigationView.bind(this)
+		this.onActionSelected = this.onActionSelected.bind(this)
 	}
 	componentWillMount(){
 		loadData(this.props)
@@ -48,10 +52,22 @@ class MainContainer extends React.Component {
 	componentWillReceiveProps(nextProps){
 		//console.log(this.props,nextProps)
 		const {dispatch, onEndReached, currentPage, nextPage} = nextProps
-		if(nextProps.onEndReached == true) {
+		if(nextProps.onEndReached == true && nextProps.isFetching == false) {
 			loadData(nextProps)
 		}
 	}
+
+	onActionSelected (position) {
+	    const { navigator } = this.props
+	    InteractionManager.runAfterInteractions(() => {
+	      if (position === 0) {
+	        navigator.push({
+	          component: SearchContainer,
+	          name: 'Search'
+	        })
+	      }
+	    })
+  }
 
 	_renderNavigationView() {
 		return (
@@ -77,13 +93,14 @@ class MainContainer extends React.Component {
           		titleColor='#fff'
           		actions={toolbarActions}
           		navIcon={require('../../assets/menu.png')}
+          		onActionSelected={this.onActionSelected}
           		onIconClicked={() => this.refs[DRAWER_REF].openDrawer()}
   	    	  />
   	    	  <ScrollableTabView>
-  	    	  	<Goods {...this.props} style={styles.tabview} items={items} tabLabel='发现' />
-  	    	  	<Test {...this.props} style={styles.tabview} items={items} tabLabel='个性推荐' />
-  	    	  	<Test {...this.props} style={styles.tabview} items={items} tabLabel='新品上新' />
-  	    	  	<Test {...this.props} style={styles.tabview} items={items} tabLabel='排行榜' />
+  	    	  	<Goods {...this.props} style={styles.tabview} tabLabel='发现' />
+  	    	  	<Test {...this.props} style={styles.tabview}  tabLabel='个性推荐' />
+  	    	  	<Test {...this.props} style={styles.tabview}  tabLabel='新品上新' />
+  	    	  	<Test {...this.props} style={styles.tabview}  tabLabel='排行榜' />
   	    	  </ScrollableTabView>
 			 </DrawerLayoutAndroid>
 		)
