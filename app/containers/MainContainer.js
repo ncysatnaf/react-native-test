@@ -112,7 +112,7 @@ let styles = StyleSheet.create({
     height: 55,
     color: '#fff',
     backgroundColor: '#f4a221',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 })
 

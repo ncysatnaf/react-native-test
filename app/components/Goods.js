@@ -22,10 +22,10 @@ export class Goods extends React.Component {
   }
 
   onEndReached() {
-    if (this.props.quertName) {
-      this.props.dispatch(handleOptionChange('onEndReached', true, 'searchlist'))
-    } else {
+    if (this.props.quertName == null ) {
       this.props.dispatch(handleOptionChange('onEndReached', true, 'goodslist'))
+    } else {
+      this.props.dispatch(handleOptionChange('onEndReached', true, 'searchlist'))
     }
   }
 
@@ -96,7 +96,7 @@ export class Goods extends React.Component {
               </View>
             )
           }}/>
-          {(this.props.onEndReached || this.props.isFetching) && <ProgressBarAndroid  styleAttr="Inverse" color="red" indeterminate={true}/>}
+          {(this.props.onEndReached ) && <ProgressBarAndroid  styleAttr="Inverse" color="red" indeterminate={true}/>}
       </View>
 
     )

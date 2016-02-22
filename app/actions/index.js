@@ -21,7 +21,7 @@ function fetchGoods(data) {
 	formdata.append("page", page)
 	formdata.append("name", queryName)
 	return dispatch => {
-		if (!queryName) {
+		if (queryName == null) {
 			dispatch(requestGoods())
 		}else{
 			dispatch(requestSearch())

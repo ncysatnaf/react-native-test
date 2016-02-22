@@ -31,7 +31,7 @@ function goodslist(state = {
 				currentPage: action.goodslist.currentPage,
 				nextPage: ++action.goodslist.currentPage,
 				onEndReached: false,
-				quertyName: null
+				queryName: null
 			})
 		case types.HANDLE_OPTION_CHANGE:
 			if(action.parent === 'goodslist') {
@@ -66,7 +66,7 @@ function searchlist(state = {
 				currentPage: action.searchlist.currentPage,
 				nextPage: ++action.searchlist.currentPage,
 				onEndReached: false,
-				quertyName: null
+				queryName: actions.queryName
 			})
 			}
 		case types.HANDLE_OPTION_CHANGE:
