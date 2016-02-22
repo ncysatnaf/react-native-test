@@ -9,6 +9,7 @@ import React, {
 
 import {connect} from 'react-redux/native'
 import { fetchGoodsIfNeeded } from '../actions/index'
+import InteractionManager from 'InteractionManager'
 
 import Goods from '../components/Goods'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -37,7 +38,9 @@ class SearchContainer extends React.Component {
  		)
  	}
  	onBack() {
- 		this.props.navigator.pop()
+ 		InteractionManager.clearInteractionHandle(() => {
+			this.props.navigator.pop()
+		})
  	}
  	 onSubmitEditing () {
     	const {dispatch} = this.props
@@ -70,7 +73,7 @@ class SearchContainer extends React.Component {
 				  autoCorrect={false}
 				  value={this.text}/>
 				 </View>
-				{items && this.renderContent()}
+				 {this.props.queryName !== null && this.renderContent()}
 			</View>
 		)
 	}
@@ -85,7 +88,7 @@ let styles = StyleSheet.create({
     flexDirection: 'row',
     width: deviceWidth,
     height: 50,
-    backgroundColor: '#3a3f41'
+    backgroundColor: '#f4a221'
   },
   backIcon: {
     marginLeft: 10,
@@ -98,7 +101,7 @@ let styles = StyleSheet.create({
   input: {
     height: 50,
     padding: 5,
-    width: deviceWidth - 100,
+    width: deviceWidth,
     color: '#fff'
   },
   title: {
