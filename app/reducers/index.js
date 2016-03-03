@@ -1,4 +1,4 @@
-import merge from 'loadsh/object/merge'
+import merge from 'lodash/object/merge'
 import union from 'lodash/array/union'
 import * as types from '../actions'
 import { combineReducers } from 'redux'

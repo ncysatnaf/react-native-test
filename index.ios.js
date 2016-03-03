@@ -1,5 +1,5 @@
 import React from 'react-native'
-import Main from './app/main'
+import Main from './app/Main'
 
 const {
   AppRegistry
